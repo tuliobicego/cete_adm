@@ -6,15 +6,13 @@ interface Props {
 }
 
 export const AnimatedContainer = styled.div`
-width: 80%;
-height: 60%;
-    padding: 5%;
+    width: 80%;
+    height: auto;
     border-radius: .5rem;
+    margin-top: 20%;
+    padding: 2% 10%;
     align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    align-content: flex-start;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.25);
     position: absolute;
     flex: ${(props: Props) => {
     switch (props.mode) {
@@ -23,44 +21,44 @@ height: 60%;
       default:
         return "0";
     }
-  }};
-  display: ${(props: Props) => {
-    switch (props.mode) {
-      case "open":
-        return "flex";
-      default:
-        return "none";
-    }
-  }};
-  opacity: ${(props: Props) => {
-switch (props.fade) {
-  case "in":
-    return "1";
-  default:
-    return "0";
-};
-}};
-transition: ${(props: Props) => {
+    }};
+    display: ${(props: Props) => {
+      switch (props.mode) {
+        case "open":
+          return "flex";
+        default:
+          return "none";
+      }
+    }};
+    opacity: ${(props: Props) => {
   switch (props.fade) {
     case "in":
-      return `opacity linear 0.4s;`;
-    case "out":
-      return `opacity linear 0.4s;`;
+      return "1";
     default:
-      return "";
+      return "0";
+  };
+  }};
+  transition: ${(props: Props) => {
+    switch (props.fade) {
+      case "in":
+        return `opacity linear 0.4s;`;
+      case "out":
+        return `opacity linear 0.4s;`;
+      default:
+        return "";
+    }
   }
-}}
+}
 `
 
 
 export const AnimatedModalContainer = styled.div`
     display: flex;
-    width: 80%;
-    height: 50%;
+    width: 100%;
+    height: auto;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
     background: rgba(255, 255, 255, 1);
     position: relative;
     padding: 2%;
@@ -72,26 +70,27 @@ export const AnimatedModalContainer = styled.div`
       default:
         return "0";
     }
-  }};
-transition: ${(props: Props) => {
-  switch (props.fade) {
-    case "in":
-      return `opacity linear 0.4s;`;
-    case "out":
-      return `opacity linear 0.4s;`;
-    default:
-      return "";
-  }
-}};
+    }};
+    transition: ${(props: Props) => {
+      switch (props.fade) {
+        case "in":
+          return `opacity linear 0.4s;`;
+        case "out":
+          return `opacity linear 0.4s;`;
+        default:
+          return "";
+      }
+    }
+  };
 `
 
 
 
 
 export const Content = styled.div`
-display: flex;
+  display: flex;
     width: 100%;
-    height: 100%;
+    height: auto;
     align-items: center;
     flex-direction: column;
     justify-content: space-around;
@@ -100,9 +99,26 @@ display: flex;
 
 export const ButtonContainer = styled.div`
 display: flex;
-    width: 100%;
+    width: 50%;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    align-content: center;
+`
+
+
+export const Space = styled.div`
+  display: flex;
+    width: 100%;
+    height: 30px;
+`
+
+export const Header = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
     align-content: center;
 `

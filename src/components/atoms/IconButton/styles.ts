@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   border-radius: 10px 10px;
+  justify-content: center;
+  display: flex;
 
   color: #FFFFFF;
   margin-right: 2%;
@@ -12,7 +14,7 @@ export const Container = styled.div`
     border: 0;
     flex: 1;
     padding: 2%;
-    color: #224b22;
+    color: #2d76b2;
     cursor: pointer;
     justify-content: center;
     align-self: center;

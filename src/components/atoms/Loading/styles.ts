@@ -4,19 +4,26 @@ const rotate = keyframes`
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 `;
 
-export const Rotate = styled.div`
-  height: 100%;
-  width: 100%;
+export const RotateWrapper = styled.div`
+  width: 1000px;
+  height: 1000px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+`;
+
+export const RotatingContent = styled.div`
+  display: flex;
+  width: 50%;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
   animation: ${rotate} 2s linear infinite;
-  padding: 2rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1.8rem
 `;

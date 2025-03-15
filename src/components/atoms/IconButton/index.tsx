@@ -13,7 +13,7 @@ const IconButton: React.FC<IconButtonProps> = ({ label, onPress, icon: Icon, ...
   return (
     <Container>
       <button {...rest} onClick={onPress}>
-        {Icon && <Icon size={25} color='#224b22' style={{margin: '2px'}} />}
+        {Icon && <Icon size={25} color='#2d76b2' style={{margin: '2px'}} />}
         <h5>{label}</h5>
       </button>
     </Container>

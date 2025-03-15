@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Presença</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 800px;
+            padding: 30px;
+            background-color: white;
+            border: 2px solid black;
+            position: relative;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 120px; /* Ajuste o tamanho do logo conforme necessário */
+            height: auto;
+        }
+        h1, h2, H3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .info {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .info strong {
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+        .assinatura {
+            height: 50px;
+        }
+        @page {
+            size: A4 portrait; /* Define o modo retrato para impressão */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h2>Lista de Presença</h2>
+            <img src="logoCETE40.png" alt="Logo" class="logo"> <!-- Altere para o caminho correto do logo -->
+        </div>
+
+        <div class="info">
+            <p><strong>Aula:</strong> ${aula.nome}</p>
+            <p><strong>Data:</strong> ${aula.data}</p>
+            <p><strong>Período:</strong> ${aula.periodo}</p>
+            <p><strong>Professor:</strong> ${aula.professor}</p>
+            <p><strong>Turma:</strong> ${aula.turma}</p>
+        </div>
+
+        <h3>Alunos Presentes</h3>
+
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Assinatura</th>
+            </tr>
+            ${alunos.map(alumn => `
+            <tr>
+                <td>${alumn.name}</td>
+                <td class="assinatura"></td>
+            </tr>
+            `).join("")}
+        </table>
+    </div>
+
+</body>
+</html>

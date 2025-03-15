@@ -1,5 +1,6 @@
+
 export type IUser = {
-    id: string
-    role: 'admin' | 'staff'
-    status: 'active' | 'inactive' 
+    _id: string
+    role: string
+    email: string
 }

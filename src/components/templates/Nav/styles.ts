@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { MenuOutlined } from "@ant-design/icons";
+import { Drawer } from 'antd';
 
 export const Container = styled.div`
   width: 100%;
@@ -35,7 +36,6 @@ export const Side = styled.div`
 `
 
 export const Content = styled.div`
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -52,8 +52,9 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  height: 50px;
+  justify-content: flex-start;
+  height: 4rem;
+  width: 100%;
 `
 
 export const PageTitle = styled.div`
@@ -61,21 +62,22 @@ export const PageTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 1%
+  margin-top: 1%;
+  margin-left: 10%
 `
 
 export const PageIconContainer = styled.div`
-  height: 70%;
+  height: 100%;
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   padding-bottom: 50%;
 `
 
 export const IconContainer = styled.div`
-  //background-color: red;
+  background-color: rgba(38,48,101,0);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   justify-content: center;
@@ -84,8 +86,8 @@ export const IconContainer = styled.div`
   &:hover,
   &:active,
   &:focus {
-    background: linear-gradient(to right, rgba(46,56,46,0), 50%, rgba(46,96,46,.1));
-    border-left: 2px solid #224b22
+    background: linear-gradient(to right, rgba(38,48,101,0), 50%, rgba(38,48,101,.1));
+    border-left: 2px solid #2d76b2
   };
 `;
 
@@ -136,6 +138,22 @@ export const Menu = styled("h5")`
 `;
 
 export const Shadow = styled.div`
-  background: linear-gradient(to left, rgba(46,56,46,0), 50%, rgba(46,96,46,.1));
+  background: linear-gradient(to left, rgba(38,48,101,0), 50%, rgba(46,96,46,.1));
   width: 30px;
+`;
+
+export const StyledDrawer = styled(Drawer)`
+  .ant-drawer-body {
+    overflow-y: auto; 
+    overflow-x: hidden; 
+
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; 
+    }
+
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+  }
 `;

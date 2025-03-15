@@ -1,27 +1,19 @@
-import {IAthlet, IInjury, ITeamAvaliation} from './athlet'
-import {IAvaliation, ITerapeuticPlan} from './avaliation'
-import {ISingleEvolution} from './evolution'
-import {IInstrument} from './instrument'
+import {IAlumn} from './alumn'
+import {IAxis} from './axis'
+import {ILesson} from './lesson'
+import {IPayment} from './payment'
 import {IPhoto} from './photo'
-import {IPhysiotherapist} from './physiotherapist'
-import {IReport} from './report'
-import {ISport} from './sport'
-import {ITeam, IWeeklyFollowUp} from './team'
+import {IProfessor} from './professor'
 import {IUser} from './user'
+import {IError} from './error'
 
 export type {
-    IAthlet,
-    IAvaliation,
-    IInstrument,
-    IInjury,
+    IAlumn,
+    IAxis,
+    ILesson,
+    IPayment,
     IPhoto,
-    IPhysiotherapist,
-    IReport,
-    ISport,
-    ISingleEvolution,
-    ITeam,
-    ITeamAvaliation,
-    ITerapeuticPlan,
+    IProfessor,
     IUser,
-    IWeeklyFollowUp
+    IError
 }

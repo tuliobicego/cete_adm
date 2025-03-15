@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo!</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 40px auto; background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .header { background: linear-gradient(135deg, #0047AB 40%, #002F6C 100%); color: white; text-align: center; padding: 30px 20px; }
+        .header img { width: 120px; height: auto; }
+        .content { padding: 20px; text-align: center; }
+        .content h2 { color: #0047AB; }
+        .button { display: inline-block; background-color: #0047AB; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
+        .button:hover { background-color: #003580; }
+        .footer { background-color: #f4f4f4; color: #666; text-align: center; font-size: 12px; padding: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Cabeçalho com banner e logo -->
+        <div class="header">
+            <img src="http://localhost:3000/logoCETE40.svg" alt="Logo">
+            <h1>Bem-vindo, {displayName}!</h1>
+        </div>
+
+        <!-- Conteúdo do e-mail -->
+        <div class="content">
+            <h2>Estamos felizes em ter você conosco!</h2>
+            <p>Sua conta foi criada com sucesso. Clique no botão abaixo para acessar sua conta:</p>
+            <a href="{loginLink}" class="button">Acessar Conta</a>
+            <p>Se precisar de ajuda, entre em contato com nosso suporte.</p>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>&copy; {year} Nome da Empresa. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+</body>
+</html>

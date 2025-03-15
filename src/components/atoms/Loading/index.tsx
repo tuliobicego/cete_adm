@@ -1,8 +1,8 @@
 import React from 'react'
-import { Rotate } from './styles'
+import { RotateWrapper, RotatingContent } from './styles'
 
 const Loading: React.FC = () => {
-  return <Rotate>&lt; 💅🏾 &gt;</Rotate>
+  return <RotateWrapper><RotatingContent>&lt; 💅🏾 &gt;</RotatingContent></RotateWrapper>
 }
 
 export default Loading

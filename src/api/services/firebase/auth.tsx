@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Firebase } from "./setup";
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,12 @@ export const auth = getAuth(Firebase);
 export const logInFirebase = async (email: string, password: string) => {
   try {
     const authUser = await signInWithEmailAndPassword(auth, email, password);
-    console.log({ authUser });
+    
     const user: any = authUser.user.toJSON();
-    console.log({ user });
+    
     return { id: user.uid, token: user.stsTokenManager.accessToken };
   } catch (error: any) {
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 };
 
@@ -25,9 +25,8 @@ export const logOut = async () => {
 
 interface User {
   id: string;
-  role: string;
-  token: string;
-  type: string;
+  role?: string;
+  email: string
 }
 
 interface AuthError {
@@ -40,9 +39,9 @@ interface AuthContextData {
   logIn(email?: string, password?: string): Promise<any>;
   logOut(): void;
   setLoading(loading: boolean): void;
+  setRole(role: string): void;
   loading: boolean;
   error: AuthError;
-  saveImage(data: Blob, ref: string): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -57,85 +56,87 @@ export function AuthProvider({children}: Props): any {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>("");
 
-  //Para manter logado
+  //Para manter logado 
   useEffect(() => {
-    async function loadStorageData() {
-      const storagedUser = localStorage.getItem("@Auth:userId");
-      const storagedRole = localStorage.getItem("@Auth:userRole");
-      const storagedToken = localStorage.getItem("@Auth:accessToken");
-      const storagedType = localStorage.getItem("@Auth:userType");
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      
+      if (user && user.uid && user.email && user.uid === auth.currentUser?.uid && user.email === auth.currentUser?.email) {
+        
+        const role = sessionStorage.getItem("@Auth:userRole") || "";
+        //const firebaseUid = sessionStorage.getItem("@Auth:userFirebaseUid") || "";
+        //const email = sessionStorage.getItem("@Auth:userEmail") || "";
+        
 
-      if (storagedUser && storagedToken && storagedType && storagedRole) {
-        setUser({
-          id: storagedUser,
-          role: storagedRole,
-          token: storagedToken,
-          type: storagedType,
-        });
+        setUser({ id: user.uid, email: user.email, role})
+
+      } else {
+        console.warn("Usuário deslogado ou token expirado, redirecionando...");
+        setUser(null);
+        sessionStorage.clear();
+        navigate("/"); // 🔹 Redireciona automaticamente para o login
       }
-    }
-    console.log("effect!");
-    loadStorageData();
-    setLoading(false);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  async function logIn(email: string, password: string) {
+  async function setRole(role: string) {
+    const id = user?.id
+    const email = user?.email
+    if(id && email && role) setUser({id, email, role})
+  }
+
+  async function logIn(email: string, password: string): Promise<boolean> {
     setLoading(true);
     try {
-      const userLogged: any = await logInFirebase(email, password);
-      console.log(userLogged ? userLogged.token : "error");
-      if (!userLogged || !userLogged.id || !userLogged.token) {
-        setError("authenticationError");
-        return;
-      } else {
-        const type =
-          userLogged.id === process.env.REACT_APP_USER_ADMIN
-            ? "admin"
-            : "secretaire";
+      const authUser = await signInWithEmailAndPassword(auth, email, password);
+      
+      if(!authUser.user.uid) return false
+      
+      const id = authUser.user.uid 
+      const emailLogged = authUser.user.email || ""
+      //const role = authUser.user.email || ""
 
-        setUser({ ...userLogged, type });
-        localStorage.setItem("@Auth:userId", userLogged.id);
-        localStorage.setItem("@Auth:userRole", userLogged.role);
-        localStorage.setItem("@Auth:accessToken", userLogged.token);
-        localStorage.setItem("@Auth:userType", type);
-        return;
-      }
-    } catch (error) {
-      console.log(error);
-      setError(error);
-      return;
+      setUser({ id: id, role: '', email: emailLogged})
+
+      sessionStorage.setItem("@Auth:userEmail", emailLogged);
+      sessionStorage.setItem("@Auth:userFirebaseUid", id);
+      
+      return true;
+    } catch (error: any) {
+      setError({message: "authFailure"}); 
+      return false;
+    } finally {
+      setLoading(false);
     }
   }
 
   async function logOut() {
     setLoading(true);
     try {
-      await logOut();
-      localStorage.clear();
-      setError("");
+      await signOut(auth);
+      sessionStorage.clear();
       setUser(null);
-      setLoading(false);
       navigate("/");
     } catch (error) {
-      return;
+      console.error("logOutError:", JSON.stringify(error, null, 2));
+    } finally {
+      setLoading(false);
     }
-  }
-
-  async function saveImage(data: Blob, ref: string) {
-    //await firebase.uploadImage(data, ref)
   }
 
   return (
     <AuthContext.Provider
       value={{
-        logged: !!user,
+        logged: !!user?.email && !!user?.id && !!user?.role,
         user,
         logIn,
         logOut,
         loading,
         setLoading,
         error,
-        saveImage,
+        setRole,
       }}
     >
       {children}

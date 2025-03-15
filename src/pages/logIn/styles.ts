@@ -1,22 +1,61 @@
 import styled from "styled-components";
 
+
+
 export const Container = styled.div`
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #2d76b2;
+  width: 100%;
+
+  overflow-y: auto; 
+  overflow-x: hidden; 
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+`;
+
+
+export const Content = styled.div`
+  width: max-content;
+  height: max-content;
+  background: #E5E5E5AA;
+  border-radius: 20px;
+  margin-top: 5%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+export const Form = styled.form`
+
+  
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
-`;
-
-export const Form = styled.form`
-  width: 450px;
-  height: 80%;
-  background: #E5E5E5AA;
-  border-radius: 20px;
-  padding: 20px;
-  display: flex;
+  height: 100%;
   flex-direction: column;
-  align-items: center;
+  width: 400px;
+
+  overflow-y: auto; 
+  overflow-x: hidden; 
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
   div {
     width: 100%;
     height: 100%;
@@ -27,8 +66,9 @@ export const Form = styled.form`
     justify-content: center;
   }
   img {
-    width: 100px;
-    margin: 10px 0 40px;
+    margin-top: 20%;
+    width: 35%;
+    margin-bottom: 20%;
   }
   p {
     color: #ff3333;
@@ -68,7 +108,7 @@ export const Form = styled.form`
 export const Button = styled.button`
   margin-top: 4%;
   background: #E6E6E6;
-  color: #224b22;
+  color: #2d76b2;
   width: 100%;
   padding-top: 3%;
   padding-bottom: 3%;

@@ -21,15 +21,15 @@ export const Container = styled.div`
 
 export const InputBox = styled.div`
 background: #FFFFFF;
-  width: 100%;
+  width: 90%;
   border-radius: 10px;
   padding: 16px;
-  color: #224b22;
+  color: #2d76b2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  border: .5px solid #224b2210;
+  border: .5px solid #2d76b210;
 input {
     background: transparent;
     border: 0;

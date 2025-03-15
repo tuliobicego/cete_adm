@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { AnimatedContainer, AnimatedModalContainer, Content, ButtonContainer } from './styles'
+import { AnimatedContainer, AnimatedModalContainer, Content, ButtonContainer, Space, Header } from './styles'
 import {ReactComponent as XCircleIcon} from '../../../assets/svg/x_circle_red.svg'
 import {ReactComponent as CheckCircleIcon} from '../../../assets/svg/check-circle.svg'
 import Button from '../../atoms/Button'
@@ -22,7 +22,7 @@ interface ModalProps {
   content: ContentProps
   show: boolean
   stage: 'confirmation' | 'success' | 'error'
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 const MutationModal: React.FC<ModalProps> = ({ children, content, show, loading, onPressClose, onPressError, onPressSuccess,stage, onPressMutate }) => {
@@ -56,41 +56,54 @@ const MutationModal: React.FC<ModalProps> = ({ children, content, show, loading,
         {stage === 'confirmation' && !loading ? 
           <Content>
             <h2 style={{textAlign: 'center'}}>{content.confirmationTopText}</h2>
+            <Space/>
+            <Space/>
+            <Space/>
             
               {children}
+              <Space/>
             <ButtonContainer>
-              <Button  name='confirm_button' key='confirm_button'  onPress={onPressMutate} style={{background: '#00cc00DD', width: '100%'}} text={'Confirmar'}/>
-            <Button  name='close_button' key='close_button'  onPress={onPressClose} style={{background: '#cc000072', width: '100%'}} text={'Fechar'}/>
+              <Button  name='confirm_button' key='confirm_button'  onPress={onPressMutate} style={{background: '#2ECC71', width: '50%'}} text={'Confirmar'}/>
+            <Button  name='close_button' key='close_button'  onPress={onPressClose} style={{background: '#cc000072', width: '50%'}} text={'Fechar'}/>
             </ButtonContainer>
             </Content>
         : null}
         {stage === 'success' && !loading ?
           <Content>
-            <h2>Sucesso</h2>
-            
-            <IconButton
-            name='success_button_icon'
-            key='success_button_icon'
-            onPress={() => {}}
+            <Space/>
+            <Header>        
+              <IconButton
+                name='success_button_icon'
+                key='success_button_icon'
+                onPress={() => {}}
                 color={'#080c08'}
-              icon={CheckCircleIcon}
+                icon={CheckCircleIcon}
               />
-              <h1>{content.successDescription}</h1>
-            <Button  name='success_button' key='success_button'  onPress={onPressSuccess} style={{background: '#2e602e80', width: '100%'}} text={'Entendi'}/>
+              <h2>Sucesso!</h2>
+            </Header>
+            <Space/>
+            <Space/>        
+            <h1>{content.successDescription}</h1>
+            <Button  name='success_button' key='success_button'  onPress={onPressSuccess} style={{background: '#2e602e80', width: '50%'}} text={'Entendi'}/>
           </Content> 
         : null}
         {stage === 'error' && !loading ? 
           <Content>
-            <IconButton
-                color={'#cc00005d'}
-                name='error_button_icon'
-                key='error_button_icon'
-                onPress={() => {}}
-              icon={XCircleIcon}
-              />
-              <h2 style={{color: '#c00'}}>Algo deu errado</h2>
-              <h1>{content.errorDescription}</h1>
-            <Button name='error_button' key='error_button' onPress={onPressError} style={{background: '#FF638480', width: '100%'}} text={ 'Entendi'}/>
+            <Space/>
+            <Header>      
+              <IconButton
+                  color={'#cc00005d'}
+                  name='error_button_icon'
+                  key='error_button_icon'
+                  onPress={() => {}}
+                  icon={XCircleIcon}
+                />
+                <h2 >Algo deu errado</h2>
+            </Header>
+            <Space/>
+            <Space/>   
+            <h1>{content.errorDescription}</h1> 
+            <Button name='error_button' key='error_button' onPress={onPressError} style={{background: '#FF638480', width: '50%'}} text={ 'Entendi'}/>
           </Content> 
         : null}        
       </AnimatedModalContainer>

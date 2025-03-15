@@ -1,4 +1,4 @@
 export type IPhoto = {
-    id: string
+    _id: string
     path: string
 }

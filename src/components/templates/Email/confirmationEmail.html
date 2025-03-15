@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifique seu e-mail</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f4f4;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 40px auto; 
+            background-color: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #0047AB 40%, #002F6C 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header img { 
+            width: 120px;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content h2 {
+            color: #0047AB;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0047AB;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #003580;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            color: #666;
+            text-align: center;
+            font-size: 12px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Cabeçalho com logo -->
+        <div class="header">
+            <img src="http://localhost:3000/logoCETE40.svg" alt="Logo">
+            <h1>Confirme seu e-mail</h1>
+        </div>
+
+        <!-- Conteúdo do e-mail -->
+        <div class="content">
+            <h2>Olá, {displayName}!</h2>
+            <p>Estamos felizes por tê-lo conosco! Para começar a usar sua conta, confirme seu e-mail clicando no botão abaixo:</p>
+            <a href="{verificationLink}" class="button">Verificar E-mail</a>
+            <p>Se você não solicitou este e-mail, ignore-o.</p>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>&copy; {year} Nome da Empresa. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+</body>
+</html>

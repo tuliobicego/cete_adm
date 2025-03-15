@@ -10,7 +10,7 @@ export const Container = styled.div`
   color: #000000;
   &:active,
   &:focus {
-    background: linear-gradient(to top, rgba(46,56,46,0), 50%, rgba(46,96,46,.1));
+    background: linear-gradient(to top, rgba(38,48,101,0), 50%, rgba(38,48,101,.1));
     
   };
 `;
@@ -22,7 +22,7 @@ export const ButtonGeneral = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: .5rem;
-    background: linear-gradient(to top, rgba(46,56,46,0), 50%, rgba(46,96,46,.1));
+    background: linear-gradient(to top, rgba(38,48,101,0), 50%, rgba(38,48,101,.1));
   border: 1px solid #e6e6e6ee;
   cursor: pointer;
   &:hover{

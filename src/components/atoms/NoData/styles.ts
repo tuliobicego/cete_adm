@@ -13,7 +13,7 @@ export const Container = styled.div`
   &:hover,
   &:active,
   &:focus {
-    background: linear-gradient(to top, rgba(46,56,46,0), 50%, rgba(46,96,46,.1));
+    background: linear-gradient(to top, rgba(38,48,101,0), 50%, rgba(38,48,101,.1));
     
   };
 `;
