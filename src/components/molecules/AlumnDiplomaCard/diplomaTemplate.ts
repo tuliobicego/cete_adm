@@ -1,7 +1,6 @@
 import { IAlumn } from "../../../types";
-import { alumnStatusMap } from "../../../utils/maps/status";
 
-function diplomaTemplate(today: string, dateStartStr: string | null, dateEndStr: string | null, alumn: IAlumn): string { 
+function diplomaTemplate(today: string, dateStartStr: string | null, dateEndStr: string | null, alumn: IAlumn, sign: string): string { 
     return( `
     <!DOCTYPE html>
 <html lang="pt">
@@ -64,6 +63,15 @@ function diplomaTemplate(today: string, dateStartStr: string | null, dateEndStr:
             margin-top: 60px;
             text-align: center;
         }
+        .assinatura img {
+            position: absolute; /* Faz a imagem sobrepor o texto sem deslocá-lo */
+            left: 50%;
+            margin: -70px auto 0 auto;
+            transform: translateX(-50%); /* Centraliza horizontalmente */
+            width: 180px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+            pointer-events: none; /* Garante que a imagem não bloqueie cliques */
+        }
         .assinatura p {
             margin: 5px 0;
         }
@@ -71,7 +79,7 @@ function diplomaTemplate(today: string, dateStartStr: string | null, dateEndStr:
             font-size: 16px;
         }
         .data {
-            margin-top: 50px;
+            margin-top: 20px;
             font-size: 16px;
         }
     </style>
@@ -101,8 +109,8 @@ function diplomaTemplate(today: string, dateStartStr: string | null, dateEndStr:
         </p>
 
         <div class="assinatura">
-            <p>_______________________________________</p>
-            <p><strong>Prof. Me Ronaldo Alves da Cunha</strong></p>
+            <img src="${sign}" alt="Assinatura do Coordenador">
+            <p><strong>Prof. Dr. Ronaldo Alves da Cunha</strong></p>
             <p>Coordenador de Curso</p>
         </div>
     </div>

@@ -10,6 +10,8 @@ import GeneratePdfButton from "../../atoms/GeneratePdfButton";
 import { maskValue } from "../../../utils/masks/masks";
 import { getMissingMonths } from "../../../utils/verifiers/verifiers";
 import { paymentTypeMap } from "../../../utils/maps/type";
+import { useLazyQuery } from "@apollo/client";
+import { GET_FILE_64 } from "../../../api/database/queries/getFile";
 
 
 interface AlumnFinanceCardProps {
@@ -18,7 +20,16 @@ interface AlumnFinanceCardProps {
 }
 
 const AlumnFinanceCard: React.FC<AlumnFinanceCardProps> = ({ alumn, children }) => {
-
+  const [getSign, { loading: loadingSign, data }] = useLazyQuery(GET_FILE_64, {
+        
+    variables: { fileId: process.env.REACT_APP_FINANCE_SIGN_ID },
+    onCompleted: (data) => {
+    },
+    onError: (error) => {
+      console.log(JSON.stringify(error, null, 2));
+    },
+    fetchPolicy: "network-only",
+  });
   const today = dateToStringRed(new Date())
   const enrollmentDate = alumn.enrollmentDate ? stringToDateRed(alumn.enrollmentDate) : null
   enrollmentDate?.setFullYear(enrollmentDate.getFullYear()+1)
@@ -26,10 +37,8 @@ const AlumnFinanceCard: React.FC<AlumnFinanceCardProps> = ({ alumn, children }) 
   
 
   const generatePDF = async () => {
-    // 🔹 1. Carregar o HTML salvo e substituir os placeholders pelos dados do aluno
+    const {data} = await getSign()
     
-
-    // 🔹 2. Criar um elemento div temporário para renderizar o HTML
     const div = document.createElement("TEMP");
     let enrollmentValue = ""
     let counter = 0
@@ -62,7 +71,7 @@ const AlumnFinanceCard: React.FC<AlumnFinanceCardProps> = ({ alumn, children }) 
     console.log(missingMonths)
 
     const total = counter.toString()
-    div.innerHTML = alumnFinanceTemplate(today, alumn, payments, missingMonths, financeStatus, enrollmentValue, total)
+    div.innerHTML = alumnFinanceTemplate(today, alumn, payments, data.downloadFileBase64, missingMonths, financeStatus, enrollmentValue, total)
     document.body.appendChild(div);
 
     // 🔹 3. Converter o HTML para imagem usando html2canvas

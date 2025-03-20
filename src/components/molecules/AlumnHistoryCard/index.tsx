@@ -7,6 +7,8 @@ import { dateToStringRed, stringToDateRed } from "../../../utils/date/date";
 import carregarImagemSVGParaBase64 from "../../../utils/image/logo";
 import historyTemplate from "./historyTemplate";
 import GeneratePdfButton from "../../atoms/GeneratePdfButton";
+import { useLazyQuery } from "@apollo/client";
+import { GET_FILE_64 } from "../../../api/database/queries/getFile";
 
 interface AlumnHistoryCardProps {
   alumn: IAlumn;
@@ -14,12 +16,22 @@ interface AlumnHistoryCardProps {
 }
 
 const AlumnHistoryCard: React.FC<AlumnHistoryCardProps> = ({ alumn, children }) => {
-
+  const [getSign, { loading: loadingSign, data }] = useLazyQuery(GET_FILE_64, {
+        
+    variables: { fileId: process.env.REACT_APP_ADM_SIGN_ID },
+    onCompleted: (data) => {
+    },
+    onError: (error) => {
+      console.log(JSON.stringify(error, null, 2));
+    },
+    fetchPolicy: "network-only",
+  });
   
 
   
 
   const generatePDF = async () => {
+    const {data} = await getSign()
     const today = dateToStringRed(new Date())
     console.log(alumn.axis)
     const alumnAxis = alumn.axis?.length ? [...alumn.axis] : []
@@ -34,7 +46,7 @@ const AlumnHistoryCard: React.FC<AlumnHistoryCardProps> = ({ alumn, children }) 
 
     // 🔹 2. Criar um elemento div temporário para renderizar o HTML
     const div = document.createElement("TEMP");
-    div.innerHTML = historyTemplate(today, dateStartStr, dateEndStr, alumn)
+    div.innerHTML = historyTemplate(today, dateStartStr, dateEndStr, alumn, data.downloadFileBase64)
     document.body.appendChild(div);
 
     // 🔹 3. Converter o HTML para imagem usando html2canvas

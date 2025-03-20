@@ -1,7 +1,7 @@
 import { IAlumn } from "../../../types";
 import { alumnStatusMap } from "../../../utils/maps/status";
 
-function historyTemplate(today: string, dateStartStr: string | null, dateEndStr: string | null, alumn: IAlumn): string { 
+function historyTemplate(today: string, dateStartStr: string | null, dateEndStr: string | null, alumn: IAlumn, sign: string): string { 
     return( `
     <!DOCTYPE html>
     <html lang="pt">
@@ -61,6 +61,15 @@ function historyTemplate(today: string, dateStartStr: string | null, dateEndStr:
             margin-top: 10%; /* Mantém o rodapé sempre no final */
             align-self: center;
         }
+        .footer img {
+            position: absolute; /* Faz a imagem sobrepor o texto sem deslocá-lo */
+            left: 50%;
+            margin: -10px auto 0 auto;
+            transform: translateX(-50%); /* Centraliza horizontalmente */
+            width: 180px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+            pointer-events: none; /* Garante que a imagem não bloqueie cliques */
+        }
         .lineSign {
             margin-top: 15%;
             border-top: 1px solid #000;
@@ -78,6 +87,13 @@ function historyTemplate(today: string, dateStartStr: string | null, dateEndStr:
         .data-field {
             font-weight: bold;
         }
+        .info {
+            margin-top: 300px;
+            font-size: 12px;
+            text-align: center;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -93,7 +109,7 @@ function historyTemplate(today: string, dateStartStr: string | null, dateEndStr:
             </div>
         </div>
 
-        <h2>HISTÓRICO DE APRIMORAMENTO PROFISSIONAL</h2>
+        <h2>HISTÓRICO ESCOLAR</h2>
         
         <p><strong>Curso:</strong> APRIMORAMENTO PROFISSIONAL EM FISIOTERAPIA ESPORTIVA</p>
         <p><strong>Aluno(a):</strong> ${alumn.name}</p>
@@ -155,8 +171,8 @@ function historyTemplate(today: string, dateStartStr: string | null, dateEndStr:
             <tr>
                 <td>DISCIPLINA TRANVERSAL (Optativo)</td>
                 <td>120</td>
-                <td>${alumn.frequences?.[4] || ''}</td>
-                <td>${alumn.grades?.[4] || ''}</td>
+                <td>${alumn.frequences?.[4] || '---'}</td>
+                <td>${alumn.grades?.[4] || '---'}</td>
             </tr>
         </table>
 
@@ -175,8 +191,14 @@ function historyTemplate(today: string, dateStartStr: string | null, dateEndStr:
         <div class="footer">
             <p>São Paulo, ${today}</p>
             <br>
-            <p class="lineSign"><strong>Prof. Me Ronaldo Alves da Cunha</strong></p>
+            <img src="${sign}" alt="Assinatura do Coordenador">
+            <p class="lineSign"><strong>Prof. Dr Ronaldo Alves da Cunha</strong></p>
             <p>Coordenador de Curso</p>
+        </div>
+        <div class="info">
+            <p>Centro de Traumato-Ortopedia do Esporte, CNPJ 03145227000113</p>
+            <p>Endereço: Rua Estado de Israel, 715, Vila Clementino, São Paulo, SP.</p>
+            <p>Contato: (11) 93120-501 | contato@cursoscete.com.br</p>
         </div>
     </div>
 

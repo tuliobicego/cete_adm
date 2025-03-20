@@ -1,6 +1,6 @@
 import { IAxis, ILesson, IPayment } from './index'
 
-type IFile = {
+export type IFile = {
   _id?: string
   filename?: string
   contentType?: string

@@ -8,6 +8,8 @@ import logo from "../../../assets/svg/logoCETE40.svg"; // Caminho da imagem no /
 import carregarImagemSVGParaBase64 from "../../../utils/image/logo";
 import declarationTemplate from "./declarationTemplate";
 import GeneratePdfButton from "../../atoms/GeneratePdfButton";
+import { useLazyQuery } from "@apollo/client";
+import { GET_FILE_64 } from "../../../api/database/queries/getFile";
 
 const generateImage = () => {
   const img = new Image();
@@ -31,12 +33,25 @@ interface AlumnDeclarationCardProps {
 }
 
 const AlumnDeclarationCard: React.FC<AlumnDeclarationCardProps> = ({ alumn, children }) => {
-  console.log(alumn)
+
+  const [getSign, { loading: loadingSign, data }] = useLazyQuery(GET_FILE_64, {
+          
+      variables: { fileId: process.env.REACT_APP_ADM_SIGN_ID },
+      onCompleted: (data) => {
+      },
+      onError: (error) => {
+        console.log(JSON.stringify(error, null, 2));
+      },
+      fetchPolicy: "network-only",
+    });
 
   
   
 
   const generatePDF = async () => {
+    const {data} = await getSign()
+
+    
     const today = dateToStringRed(new Date())
     const alumnAxis = alumn?.axis?.length ? [...alumn?.axis]?.sort((a,b)=>stringToDateRed(a.dateStart).getTime() - stringToDateRed(b.dateStart).getTime()) : undefined
     const dateStartDate =alumnAxis?.length ? stringToDateRed(alumnAxis[0].dateStart) : undefined
@@ -48,7 +63,7 @@ const AlumnDeclarationCard: React.FC<AlumnDeclarationCardProps> = ({ alumn, chil
 
     // 🔹 2. Criar um elemento div temporário para renderizar o HTML
     const div = document.createElement("TEMP");
-    div.innerHTML = declarationTemplate(today, dateStartStr, dateEndStr, alumn)
+    div.innerHTML = declarationTemplate(today, dateStartStr, dateEndStr, alumn, data.downloadFileBase64)
     document.body.appendChild(div);
 
     // 🔹 3. Converter o HTML para imagem usando html2canvas

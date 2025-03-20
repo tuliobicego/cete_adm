@@ -2,7 +2,7 @@ import { IAlumn, IPayment } from "../../../types";
 import { maskValue } from "../../../utils/masks/masks";
 import { paymentTypeMap } from "../../../utils/maps/type";
 
-function alumnFinanceTemplate(today: string, alumn: IAlumn, payments: IPayment[], late: string[] | undefined, financeStatus: string,  enrollmentValue: string| null, total: string ): string { 
+function alumnFinanceTemplate(today: string, alumn: IAlumn, payments: IPayment[], sign: string, late: string[] | undefined, financeStatus: string,  enrollmentValue: string| null, total: string ): string { 
     return( `
     <!DOCTYPE html>
 <html lang="pt">
@@ -75,6 +75,23 @@ function alumnFinanceTemplate(today: string, alumn: IAlumn, payments: IPayment[]
             width: auto;
             height: 120px;
         }
+            
+        .info {
+            margin-top: 600px;
+            font-size: 12px;
+            text-align: center;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+        }
+        .footer img {
+            position: absolute; /* Faz a imagem sobrepor o texto sem deslocá-lo */
+            left: 50%;
+            margin: -10px auto 0 auto;
+            transform: translateX(-50%); /* Centraliza horizontalmente */
+            width: 180px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+            pointer-events: none; /* Garante que a imagem não bloqueie cliques */
+        }
     </style>
 </head>
 <body>
@@ -131,10 +148,16 @@ function alumnFinanceTemplate(today: string, alumn: IAlumn, payments: IPayment[]
 
         <div class="footer">
             <p>SÃO PAULO, ${today}</p>
+            <img src="${sign}" alt="Assinatura Financeiro">
             <br>
             <p class ="lineSign"><strong>Hugo Menezes</strong></p>
             <p>Responsável Administrativo</p>
             <p>RG: </p>
+        </div>
+        <div class="info">
+            <p>Centro de Traumato-Ortopedia do Esporte, CNPJ 03145227000113</p>
+            <p>Endereço: Rua Estado de Israel, 715, Vila Clementino, São Paulo, SP.</p>
+            <p>Contato: (11) 93120-501 | contato@cursoscete.com.br</p>
         </div>
     </div>
 

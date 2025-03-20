@@ -58,6 +58,7 @@ import { alumnErrorMap } from "../../utils/maps/error";
 import MutationModal from "../../components/templates/MutationModal";
 import AlumnCard from "../../components/molecules/AlumnCard";
 import UpdateUploadBox from "../../components/atoms/UpdateUploadBox";
+import { FileItem } from "../../components/atoms/FileItem";
 
 
 
@@ -327,6 +328,8 @@ const AlumnProfilePage: React.FC = () => {
     variables: { alumnId: location.state.alumnId },
     onCompleted: (data) => {
       if (data.alumn.alumn) {
+        
+    console.log({alumn: data.alumn.alumn})
         setAlumn(data.alumn.alumn);
         const total = data.alumn.alumn.axis?.flatMap(axis=>axis.lessons)?.sort((a, b) => - stringToDateRed(a?.date || '').getTime() + stringToDateRed(b?.date || '').getTime()) || []
         setTotalLessons(total)
@@ -612,9 +615,7 @@ const AlumnProfilePage: React.FC = () => {
                   :
                   <UpdateUploadBox title={'Documento de identidade'} type='document' entity="alumn" entityId={alumn._id}/>
                 }
-              {alumn?.documentFile?.contentType && alumn?.documentFile?.contentType === 'application/pdf' ? <div>(
-                <embed key={'docFile'} src={`data:${alumn?.documentFile.contentType};base64,${alumn?.documentFile.base64}`} type="application/pdf" width="600px" height="400px" />
-                )</div> : null}
+              {alumn?.documentFile ? <FileItem file={alumn.documentFile}/> : null}
             </>
             </IdContainer> 
             : content === "enrollment" ? <NoData/> : null}
@@ -638,9 +639,7 @@ const AlumnProfilePage: React.FC = () => {
                   :
                   <UpdateUploadBox title={'Comprovante de residência'} type='residence' entity="alumn" entityId={alumn._id} />
                 }
-              {alumn?.residenceFile?.contentType && alumn?.residenceFile?.contentType === 'application/pdf' ? <div>(
-                <embed key={'resFile'} src={`data:${alumn?.residenceFile.contentType};base64,${alumn?.residenceFile.base64}`} type="application/pdf" width="600px" height="400px" />
-                )</div> : null
+              {alumn?.residenceFile ? <FileItem file={alumn.residenceFile}/> : null
               }
             </>
             </IdContainer>
@@ -666,9 +665,7 @@ const AlumnProfilePage: React.FC = () => {
                   <UpdateUploadBox title={'Diploma de graduação'} type='diploma' entity="alumn" entityId={alumn._id} />
                 }
               
-              {alumn?.diplomaFile?.contentType && alumn?.diplomaFile?.contentType === 'application/pdf' ? <div>(
-                <embed key={'dipFile'} src={`data:${alumn?.diplomaFile.contentType};base64,${alumn?.diplomaFile.base64}`} type="application/pdf" width="600px" height="400px" />
-                )</div> : null
+              {alumn?.diplomaFile ? <FileItem file={alumn.diplomaFile}/> : null
               }
             </>
             </IdContainer>

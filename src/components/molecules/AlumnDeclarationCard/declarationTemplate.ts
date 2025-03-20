@@ -1,6 +1,6 @@
 import { IAlumn } from "../../../types";
 
-function declarationTemplate(today: string, dateStartStr: string | null, dateEndStr: string | null, alumn: IAlumn): string { 
+function declarationTemplate(today: string, dateStartStr: string | null, dateEndStr: string | null, alumn: IAlumn, sign: string): string { 
     return( `
     <!DOCTYPE html>
     <html lang="pt">
@@ -49,6 +49,15 @@ function declarationTemplate(today: string, dateStartStr: string | null, dateEnd
                 text-align: center;
                 border-top: 1px solid #000;
                 padding-top: 10px;
+            }                
+            .signature img {
+                position: absolute; /* Faz a imagem sobrepor o texto sem deslocá-lo */
+                left: 50%;
+                margin: -10px auto 0 auto;
+                transform: translateX(-50%); /* Centraliza horizontalmente */
+                width: 180px; /* Ajuste o tamanho conforme necessário */
+                height: auto;
+                pointer-events: none; /* Garante que a imagem não bloqueie cliques */
             }
         </style>
     </head>
@@ -80,9 +89,10 @@ function declarationTemplate(today: string, dateStartStr: string | null, dateEnd
             <!-- Assinatura -->
             <div class="signature">
                 <p>São Paulo, ${today}</p>
+                <img src="${sign}" alt="Assinatura do Coordenador">
                 <br><br>
-                <img src="check-circle.svg" alt="Assinatura">
-                <p>Prof. Ronaldo Alves da Cunha</p>
+                <br><br>
+                <p>Prof. Dr. Ronaldo Alves da Cunha</p>
                 <p>Crefito3-87842-F</p>
             </div>
 
